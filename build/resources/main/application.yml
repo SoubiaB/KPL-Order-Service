@@ -1,0 +1,29 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: KPL-Order-Service
+
+  security:
+    oauth2:
+       resourceserver:
+         jwt:
+            realm: ${KEY_CLOCK_JWT_REALM_NAME:aekyam-auth}
+            auth-server: ${KEY_CLOAK_AUTH_SERVER:https://iam.acuverinnovation.com}
+            issuer-uri: ${spring.security.oauth2.resourceserver.jwt.auth-server}/realms/${spring.security.oauth2.resourceserver.jwt.realm}
+            jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+
+
+  data:
+    mongodb:
+      database: KPL_Order
+      uri: mongodb://localhost:27017
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+
